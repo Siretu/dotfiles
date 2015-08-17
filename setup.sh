@@ -1,6 +1,7 @@
 SYMLINK_LIST="
 .bashrc
 .bash_aliases
+.vimrc
 "
 
 BASE_DIR=$(cd $(dirname $0);pwd)
