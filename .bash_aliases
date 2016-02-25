@@ -16,4 +16,5 @@ alias lightson='python $HOME/work/lifx-daemon/lights_on.py'
 alias lightsoff='python $HOME/work/lifx-daemon/lights_off.py'
 alias gs='git status'
 alias emacs='emacs23'
-
+alias please='sudo $(fc -ln -1)'
+alias sudo='sudo '
