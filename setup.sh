@@ -14,9 +14,11 @@ for FILE in $SYMLINK_LIST; do
     ln -s $BASE_DIR/$FILE ~/$FILE
 done
 
-if [ ! -d /usr/share/emacs/site-lisp/emacs-goodies-el ] ; then
+EMACS_DIR=~/.emacs.d/
+if [ ! -d $EMACS_DIR/emacs-goodies-el ] ; then
     echo "No emacs goodies found. Installing"
-    ln -s $BASE_DIR/emacs-goodies-el/ /usr/share/emacs/site-lisp/emacs-goodies-el
+    mkdir -p $EMACS_DIR
+    ln -s $BASE_DIR/emacs-goodies-el/ $EMACS_DIR/emacs-goodies-el
 fi
 
 echo Complete
