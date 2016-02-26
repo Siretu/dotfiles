@@ -8,12 +8,27 @@
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (if (version< emacs-version "24.4")
 	 (color-theme-taylor)
-       (load-theme 'wheatgrass t))
      )
   )
+(package-initialize)
 
-(add-hook 'after-init-hook (lambda () (color-theme-taylor)))
+(if (version< "24.4" emacs-version)
+    (progn
+      (add-hook 'after-init-hook 'color-theme-taylor)
+      (add-hook 'after-init-hook 'global-company-mode)))
 ; Key bindings
 (global-set-key [ C-backspace ] 'backward-kill-word)
+
+
+; Line numbers
+(global-linum-mode t)
+(setq linum-format "%d ")
+
+
+
+; Other stuff
+(which-function-mode 1)
+(show-paren-mode 1)
+(setq-default indent-tabs-mode nil)
+
