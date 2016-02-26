@@ -1,13 +1,9 @@
-(package-initialize)
-(setq package-enable-at-startup nil)
-
 ;Color theme
 (add-to-list 'load-path "~/.emacs.d/emacs-goodies-el/")
 (require 'color-theme)
 (add-to-list 'load-path "~/.emacs.d/modes")
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
-(package-initialize)
 
 (eval-after-load "color-theme"
   '(progn
