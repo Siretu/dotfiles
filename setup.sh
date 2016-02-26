@@ -14,11 +14,16 @@ for FILE in $SYMLINK_LIST; do
     ln -s $BASE_DIR/$FILE ~/$FILE
 done
 
-EMACS_DIR=~/.emacs.d/
+EMACS_DIR=~/.emacs.d
 if [ ! -d $EMACS_DIR/emacs-goodies-el ] ; then
     echo "No emacs goodies found. Installing"
     mkdir -p $EMACS_DIR
     ln -s $BASE_DIR/emacs-goodies-el/ $EMACS_DIR/emacs-goodies-el
+fi
+if [ ! -d $EMACS_DIR/emacs-modes ] ; then
+    echo "No emacs modes found. Installing"
+    mkdir -p $EMACS_DIR
+    ln -s $BASE_DIR/emacs-modes/ $EMACS_DIR/emacs-modes
 fi
 
 echo Complete

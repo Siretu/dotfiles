@@ -1,7 +1,7 @@
 ;Color theme
 (add-to-list 'load-path "~/.emacs.d/emacs-goodies-el/")
 (require 'color-theme)
-(add-to-list 'load-path "~/.emacs.d/modes")
+(add-to-list 'load-path "~/.emacs.d/emacs-modes")
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
 
