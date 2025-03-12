@@ -7,8 +7,11 @@ git pull origin main;
 function doIt() {
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \
-		--exclude ".osx" \
+		--exclude "macos.sh" \
 		--exclude "bootstrap.sh" \
+		--exclude "brew.sh" \
+		--exclude "scheme/" \
+		--exclude "import-iterm-scheme.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
 		-avh --no-perms . ~;
