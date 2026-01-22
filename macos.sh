@@ -7,10 +7,10 @@
 osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
-sudo -v
+ sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
 # General UI/UX                                                               #
@@ -690,6 +690,59 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+# Don't show weird focus when clicking in terminal
+defaults write com.googlecode.iterm2 ClickToSelectCommand -bool false
+
+# Enable dark theme
+defaults write com.googlecode.iterm2 TabStyleWithAutomaticOption -int 1
+
+# Enable unlimited scrollback
+/usr/libexec/PlistBuddy -c "Set ':New Bookmarks':0:'Unlimited Scrollback' 1" ~/Library/Preferences/com.googlecode.iterm2.plist
+
+# Enable natural text editing key bindings
+PLIST=~/Library/Preferences/com.googlecode.iterm2.plist
+PB=/usr/libexec/PlistBuddy
+
+# Cmd+Backspace: Delete line (0x15 = Ctrl+U)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0x7f-0x100000' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0x7f-0x100000:Action' integer 11" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0x7f-0x100000:Text' string '0x15'" "$PLIST"
+
+# Option+Backspace: Delete word (Esc + Backspace)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0x7f-0x80000' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0x7f-0x80000:Action' integer 11" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0x7f-0x80000:Text' string '0x1b 0x7f'" "$PLIST"
+
+# Option+Left: Move word left (Esc+b)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf702-0x280000' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf702-0x280000:Action' integer 10" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf702-0x280000:Text' string 'b'" "$PLIST"
+
+# Cmd+Left: Move to line start (Ctrl+A)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf702-0x300000' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf702-0x300000:Action' integer 11" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf702-0x300000:Text' string '0x1'" "$PLIST"
+
+# Option+Right: Move word right (Esc+f)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf703-0x280000' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf703-0x280000:Action' integer 10" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf703-0x280000:Text' string 'f'" "$PLIST"
+
+# Cmd+Right: Move to line end (Ctrl+E)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf703-0x300000' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf703-0x300000:Action' integer 11" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf703-0x300000:Text' string '0x5'" "$PLIST"
+
+# Delete key: Delete char forward (Ctrl+D)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf728-0x0' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf728-0x0:Action' integer 11" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf728-0x0:Text' string '0x4'" "$PLIST"
+
+# Option+Delete: Delete word forward (Esc+d)
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf728-0x80000' dict" "$PLIST" 2>/dev/null
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf728-0x80000:Action' integer 10" "$PLIST"
+$PB -c "Add ':New Bookmarks:0:Keyboard Map:0xf728-0x80000:Text' string 'd'" "$PLIST"
 
 ###############################################################################
 # Time Machine                                                                #
